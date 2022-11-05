@@ -1,6 +1,6 @@
 (module conjure-tapdance.main
-  {autoload {a conjure.aniseed.core
-             nvim conjure.aniseed.nvim
+  {autoload {a aniseed.core
+             nvim aniseed.nvim
              bridge conjure.bridge
              eval conjure.eval
              extract conjure.extract

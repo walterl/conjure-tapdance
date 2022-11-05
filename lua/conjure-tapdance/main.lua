@@ -11,7 +11,7 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("conjure-tapdance.aniseed.autoload")).autoload
-local a, bridge, eval, extract, nvim, text = autoload("conjure.aniseed.core"), autoload("conjure.bridge"), autoload("conjure.eval"), autoload("conjure.extract"), autoload("conjure.aniseed.nvim"), autoload("conjure.text")
+local a, bridge, eval, extract, nvim, text = autoload("conjure-tapdance.aniseed.core"), autoload("conjure.bridge"), autoload("conjure.eval"), autoload("conjure.extract"), autoload("conjure-tapdance.aniseed.nvim"), autoload("conjure.text")
 do end (_2amodule_locals_2a)["a"] = a
 _2amodule_locals_2a["bridge"] = bridge
 _2amodule_locals_2a["eval"] = eval
