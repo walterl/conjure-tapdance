@@ -32,18 +32,20 @@
 (defn tap-*exc []
   (tap "*e" nil "*e"))
 
-(defn on-filetype []
+(defn on-filetype [buf]
   (nvim.buf_create_user_command
-    0 :TapForm #(tap-form)
+    buf :TapForm #(tap-form)
     {:desc "Tap the form under the cursor"})
   (nvim.buf_create_user_command
-    0 :TapWord #(tap-word)
+    buf :TapWord #(tap-word)
     {:desc "Tap the symbol under the cursor"})
   (nvim.buf_create_user_command
-    0 :TapV #(tap-visual)
+    buf :TapV #(tap-visual)
     {:range true
      :desc "Tap the selection"})
-  (nvim.buf_create_user_command 0 :TapExc #(tap-*exc) {:desc "Tap *e"}))
+  (nvim.buf_create_user_command
+    buf :TapExc #(tap-*exc)
+    {:desc "Tap *e"}))
 
 (defn init []
   (local group (vim.api.nvim_create_augroup "tapdance_init_filetypes" {}))
@@ -51,7 +53,9 @@
     :FileType
     {: group
      :pattern "clojure"
-     :callback on-filetype}))
+     :callback #(on-filetype 0)})
+  ;; TODO Call on-filetype for all open clojure buffers
+  )
 
 (comment
   (on-filetype)

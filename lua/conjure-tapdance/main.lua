@@ -56,28 +56,31 @@ local function tap__2aexc()
   return tap("*e", nil, "*e")
 end
 _2amodule_2a["tap-*exc"] = tap__2aexc
-local function on_filetype()
+local function on_filetype(buf)
   local function _5_()
     return tap_form()
   end
-  nvim.buf_create_user_command(0, "TapForm", _5_, {desc = "Tap the form under the cursor"})
+  nvim.buf_create_user_command(buf, "TapForm", _5_, {desc = "Tap the form under the cursor"})
   local function _6_()
     return tap_word()
   end
-  nvim.buf_create_user_command(0, "TapWord", _6_, {desc = "Tap the symbol under the cursor"})
+  nvim.buf_create_user_command(buf, "TapWord", _6_, {desc = "Tap the symbol under the cursor"})
   local function _7_()
     return tap_visual()
   end
-  nvim.buf_create_user_command(0, "TapV", _7_, {range = true, desc = "Tap the selection"})
+  nvim.buf_create_user_command(buf, "TapV", _7_, {range = true, desc = "Tap the selection"})
   local function _8_()
     return tap__2aexc()
   end
-  return nvim.buf_create_user_command(0, "TapExc", _8_, {desc = "Tap *e"})
+  return nvim.buf_create_user_command(buf, "TapExc", _8_, {desc = "Tap *e"})
 end
 _2amodule_2a["on-filetype"] = on_filetype
 local function init()
   local group = vim.api.nvim_create_augroup("tapdance_init_filetypes", {})
-  return vim.api.nvim_create_autocmd("FileType", {group = group, pattern = "clojure", callback = on_filetype})
+  local function _9_()
+    return on_filetype(0)
+  end
+  return vim.api.nvim_create_autocmd("FileType", {group = group, pattern = "clojure", callback = _9_})
 end
 _2amodule_2a["init"] = init
 --[[ (on-filetype) ]]
