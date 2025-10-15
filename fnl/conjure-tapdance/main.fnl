@@ -1,7 +1,6 @@
 (module conjure-tapdance.main
   {autoload {a aniseed.core
              nvim aniseed.nvim
-             bridge conjure.bridge
              eval conjure.eval
              extract conjure.extract
              text conjure.text}})
@@ -47,12 +46,12 @@
   (nvim.buf_create_user_command 0 :TapExc #(tap-*exc) {:desc "Tap *e"}))
 
 (defn init []
-  (nvim.ex.augroup :tapdance_init_filetypes)
-  (nvim.ex.autocmd_)
-  (nvim.ex.autocmd
-    :FileType "clojure"
-    (bridge.viml->lua :conjure-tapdance.main :on-filetype))
-  (nvim.ex.augroup :END))
+  (local group (vim.api.nvim_create_augroup "tapdance_init_filetypes" {}))
+  (vim.api.nvim_create_autocmd
+    :FileType
+    {: group
+     :pattern "clojure"
+     :callback on-filetype}))
 
 (comment
   (on-filetype)

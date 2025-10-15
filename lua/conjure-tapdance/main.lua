@@ -11,9 +11,8 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("conjure-tapdance.aniseed.autoload")).autoload
-local a, bridge, eval, extract, nvim, text = autoload("conjure-tapdance.aniseed.core"), autoload("conjure.bridge"), autoload("conjure.eval"), autoload("conjure.extract"), autoload("conjure-tapdance.aniseed.nvim"), autoload("conjure.text")
+local a, eval, extract, nvim, text = autoload("conjure-tapdance.aniseed.core"), autoload("conjure.eval"), autoload("conjure.extract"), autoload("conjure-tapdance.aniseed.nvim"), autoload("conjure.text")
 do end (_2amodule_locals_2a)["a"] = a
-_2amodule_locals_2a["bridge"] = bridge
 _2amodule_locals_2a["eval"] = eval
 _2amodule_locals_2a["extract"] = extract
 _2amodule_locals_2a["nvim"] = nvim
@@ -77,11 +76,9 @@ local function on_filetype()
 end
 _2amodule_2a["on-filetype"] = on_filetype
 local function init()
-  nvim.ex.augroup("tapdance_init_filetypes")
-  nvim.ex.autocmd_()
-  nvim.ex.autocmd("FileType", "clojure", bridge["viml->lua"]("conjure-tapdance.main", "on-filetype"))
-  return nvim.ex.augroup("END")
+  local group = vim.api.nvim_create_augroup("tapdance_init_filetypes", {})
+  return vim.api.nvim_create_autocmd("FileType", {group = group, pattern = "clojure", callback = on_filetype})
 end
 _2amodule_2a["init"] = init
---[[ (on-filetype) ]]--
+--[[ (on-filetype) ]]
 return _2amodule_2a
